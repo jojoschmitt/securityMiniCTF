@@ -1,1 +1,30 @@
-TODO
+The goal of this challenge is that the students concern themselves with a second order SQLi.
+Right at the beginning when entering the website, the user is probpted to register or login.
+When the student registers, he creates an entry in the database containing a username, password and session ID.
+These queries are protected by prepared statements.
+However this is already the state in which students should enter the payload as username.
+Once logged in, the user is granted access to a reset password page. When submitting the new password, the username is being selected in the background.
+Particularly this select query is not protected by prepared statements or any other sanitinisation, which leads to a second order vulnerability.
+
+To prevent harm against the database, the user should only be allowed to read data from the database. Therefore the user input in terms of username has to be further sanitized.
+This can be achieved using a whitelist/blacklist (careful here!). The length of the user input also has to be limited.
+Furthermore the database resets every 10 minutes or when there are more than 50.000 entries, whichever occurs first.
+
+The flag is hidden in the table as an secret entry (column) in the admin account.
+Leading the user to this column we scatter multiple hints on the website as well as in the challenge description.
+For example:
+There will be a simple local chat* (*not connected between users) that will show a message from the admin. The username of the user will be displayed when he enters a message. This way the user will know, there is a admin account.
+
+
+
+A query printing the flag would look something like: SELECT secret FROM users WHERE username=='admin';
+
+
+Technical details:
+
+Dependencies:
+  Docker, Docker-Compose
+  Database: MySQL
+  WebServer: Apache2
+  Backend language: Php
+  Frontend: Memes
