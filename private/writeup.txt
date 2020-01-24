@@ -1,5 +1,5 @@
 The goal of this challenge is that the students concern themselves with a second order SQLi.
-Right at the beginning when entering the website, the user is probpted to register or login.
+Right at the beginning when entering the website, the user is prompted to register or login.
 When the student registers, he creates an entry in the database containing a username, password and session ID.
 These queries are protected by prepared statements.
 However this is already the state in which students should enter the payload as username.

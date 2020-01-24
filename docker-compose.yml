@@ -1,1 +1,39 @@
-TODO
+version: '3'
+
+services:
+
+
+  database:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: kQh_Dö!!y82ÄIX&/s*80
+      MYSQL_DATABASE: miniCTF
+    volumes: #1
+      - ./webserver/database/live:/var/lib/mysql:rw #2
+
+      
+  website:
+    image: php:apache
+    restart: always
+    container_name: website_php_apache2
+    depends_on:
+      - database
+    volumes:
+      - ./webserver/website:/var/www/html
+    ports:
+      - "8080:80"
+   
+   
+  adminer: #3
+    image: adminer
+    restart: always
+    ports:
+      - "8088:8080"
+      
+      
+      
+#1 mounting because the database will not be saved upon container reset otherwise
+#2 rw - permission for the container to r/w ./webserver/database (for data storage on host system)
+#3 service to manage a MySQL database over HTTP
