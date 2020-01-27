@@ -1,17 +1,14 @@
 <title>Register</title>
 <b>
-Register
+Register here:
 </b>
 <form action="/tools/register-submit.php" method ="post">
 
-    <p> Name:
+    <p> Name:<br>
     <input type="text" name="name" size=30 value="" />
     </p>
-    <p> Password:
+    <p> Password:<br>
     <input type="text" name="pw" size=30 value="" />
-    </p>
-    <p> Secret:
-    <input type="text" name="sec" size=30 value="" />
     </p>
     
     <p>
@@ -19,3 +16,5 @@ Register
     </p>
     
 </form>
+
+<br/><a href="../index.php">Home</a>

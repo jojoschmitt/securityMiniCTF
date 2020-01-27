@@ -6,20 +6,21 @@
         if(empty($_POST['name'])){
             $data_missing[] = 'Name';
         } else {
-        $name = trim($_POST['name']);
+            $name = trim($_POST['name']);
+            #Deny access to admin account
+            if($name == 'admin'){
+                echo '<meta http-equiv="Refresh" content="0; url=register-admin.php"/>';
+                exit();
+            }
         }
         if(empty($_POST['pw'])){
             $data_missing[] = 'Password';
         } else {
-        $password = trim($_POST['pw']);
+            $password = trim($_POST['pw']);
         }
-        if(empty($_POST['sec'])){
-            $data_missing[] = 'Secret';
-        } else {
-        $secret = trim($_POST['sec']);
-        }
-        $sessionID = random_int(0, 999999);
-    
+        $secret = random_int(0, 999999);
+        #sessionID may be removed
+        $sessionID = random_int(0, 999999);    
     
         if(empty($data_missing)){
             include('db_connection.php');
@@ -37,9 +38,9 @@
             $affected_rows = mysqli_stmt_affected_rows($prep_stmt);
             
             if($affected_rows == 1){
-                echo "You have been registered!";
+                echo "You have been registered!<br/>";
+                echo "Please provide this secret on every login: <b>$secret</b>";
                 echo '<br/><br/><a href="../index.php">Login</a>';
-                echo '<meta http-equiv="Refresh" content="1; url=../index.php"/>';
                 mysqli_stmt_close($prep_stmt);
                 mysqli_close($conn);
             } else {
@@ -52,9 +53,8 @@
             }
             echo '<br/><a href="../register.php">Register</a>';
             echo '<br/><a href="../index.php">Home</a>';
+            echo '<meta http-equiv="Refresh" content="6; url=../index.php"/>';
         }
     }
 
 ?>
-
-<meta http-equiv="Refresh" content="6; url=../index.php"/>

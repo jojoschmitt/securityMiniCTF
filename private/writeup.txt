@@ -19,6 +19,8 @@ There will be a simple local chat* (*not connected between users) that will show
 
 A query printing the flag would look something like: SELECT secret FROM users WHERE username=='admin';
 
+Full payload as username: test' UNION SELECT * FROM users WHERE username='admin'; #'	
+
 
 Technical details:
 

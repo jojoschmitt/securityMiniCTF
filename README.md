@@ -1,5 +1,6 @@
 General usage:
-sudo ./docker_handler.sh
+    1. First build from the docker file in ./webserver with -t mywebserver
+    2. sudo ./docker_handler.sh
 
 For manual usage see docker commands below.
 
@@ -17,6 +18,12 @@ Useful docker commands:
 
     View running container:
         sudo docker ps
+        
+    Build docker image:
+        sudo docker build -t  IMAGE_NAME .
+        
+    Remove docker image:
+        sudo docker image rm IMAGE_NAME
 
     Enter shell from container:
         sudo docker exec -it CONTAINER_ID /bin/bash
