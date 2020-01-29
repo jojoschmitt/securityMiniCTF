@@ -12,19 +12,20 @@ services:
       MYSQL_ROOT_PASSWORD: kQh_Dö!!y82ÄIX&/s*80
       MYSQL_DATABASE: miniCTF
     volumes: #1
-      - ./webserver/database/live:/var/lib/mysql:rw #2
+      - ./private/webserver/database/live:/var/lib/mysql:rw #2
     networks:
       internal:
 
       
   website:
-    image: mywebserver:latest #php:apache
+    build: private/webserver
+    image: mywebserver
     container_name: webserver_php_apache2
     restart: always
     depends_on:
       - database
     volumes:
-      - ./webserver/website:/var/www/html
+      - ./private/webserver/website:/var/www/html
     ports:
       - "8080:80"
     networks:

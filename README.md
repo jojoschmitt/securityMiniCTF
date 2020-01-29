@@ -1,6 +1,11 @@
+WARNING:
+    If you would like to solve this challange for your own, be sure not to take a look into the private folder. The private folder contains the whole server setup as well as a possible solution to the challange which would obviously spoil the party.
+
 General usage:
-    1. First build from the docker file in ./webserver with -t mywebserver
-    2. sudo ./docker_handler.sh
+    1. sudo docker-compose up
+    (This will build all necessary images and run the containers)
+    2. Stop the containers (Ctrl+C)
+    3. sudo ./docker_handler.sh
     
     
 For manual usage see docker commands below.
@@ -31,8 +36,8 @@ Useful docker commands:
     Build docker image:
         sudo docker build -t  IMAGE_NAME .
         
-    Remove docker image:
-        sudo docker image rm IMAGE_NAME
+    Remove docker image (-f to force):
+        sudo docker rmi IMAGE_NAME
 
     Enter shell from container:
         sudo docker exec -it CONTAINER_ID /bin/bash
