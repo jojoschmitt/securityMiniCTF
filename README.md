@@ -1,13 +1,22 @@
 General usage:
     1. First build from the docker file in ./webserver with -t mywebserver
     2. sudo ./docker_handler.sh
-
+    
+    
 For manual usage see docker commands below.
 
 
+Web and database access:
+    Website: http://localhost:8080
+    Database management: http://localhost:8088
+
+    
 We are using docker and docker-compose to run our Apache2 webserver including Php and  a MySQL database.
 
 A simple bash script "docker_handler.sh" allows to run the whole server cycle (See the script for further information).
+
+Handy information: A shell script can also be run in detached mode using screen (apt install screen).
+
 
 Useful docker commands:
     Start services:
@@ -35,11 +44,25 @@ Useful docker commands:
         sudo docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
         
         
+Useful screen commands:
+    Start a new shell:
+        screen -S SESSION_NAME
+    
+    Detach shell:
+        Ctrl+A+D
+        
+    List running shells:
+        screen -ls
+        
+    Reattach shell:
+        screen -r SESSION_NAME
+        
+        
         
 The database:
     Persistent database parts:
-        - database miniCTF
-        - table users
-        - user admin
+        - database: miniCTF
+        - table: users
+        - user: admin
     To accomplish this, these parts are stored on the host machine in "webserver/database/clean_backup". The currently active container files can be found in "webserver/database/live".
     

@@ -34,10 +34,14 @@
 
             include('db_connection.php');
             
-            #no need for prepared statements here since the secret is server controlled
+            #using prepared statements
             #BINARY operator for byte by byte comparison -> case sensitive query
             $secret = $_COOKIE['sessionID'];
-            $response_user = $conn->query("SELECT * FROM users WHERE BINARY secret=$secret");
+   
+            $prep_stmt_user = $conn->prepare("SELECT * FROM users WHERE BINARY secret=?"); 
+            $prep_stmt_user->bind_param("s",$secret);
+            $prep_stmt_user->execute();
+            $response_user = $prep_stmt_user->get_result();
             $response_user = $response_user->fetch_array();
             $username = $response_user['username'];
             
@@ -46,7 +50,7 @@
             #you never know, better check the username a second time
             #the username is often underestimated in security
             #blacklist illegal words in username
-            $dangerous_word = array('drop','delete','update','alter');
+            $dangerous_word = array('drop','delete','update','alter','admin','insert','like');
             foreach($dangerous_word as $word){
                 #using case insensitive comparison because of MySQL queries
                 if(strcasecmp($username,$word) == 0){
@@ -54,6 +58,17 @@
                     echo '<meta http-equiv="Refresh" content="3; url=../main.php"/>';
                     exit();
                 }
+            }
+            
+            
+            #the secret may only be an integer
+            if(!is_numeric($secret)){
+                echo "Did you just change the cookie? Nananana!!";
+                if(isset($_COOKIE)){
+                    setcookie('sessionID', "", time()-1, "/");
+                }
+                echo '<meta http-equiv="Refresh" content="2; url=../index.php"/>';
+                exit();
             }
             
             

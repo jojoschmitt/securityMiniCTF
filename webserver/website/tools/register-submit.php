@@ -18,19 +18,38 @@
         } else {
             $password = trim($_POST['pw']);
         }
-        $secret = random_int(0, 999999);
-        #sessionID may be removed
-        $sessionID = random_int(0, 999999);    
+        
+        
+        
+        include('db_connection.php');
+        
+        $all_secrets = array();
+        #setting the secret to a random int that is not already existing
+        $query = "SELECT secret FROM users";
+        $result_secrets = mysqli_query($conn, $query);
+        if (mysqli_num_rows($result_secrets) > 0) {
+            while($row = mysqli_fetch_assoc($result_secrets)){
+                array_push($all_secrets,$row['secret']);
+            }
+        }
+        
+        $secret_not_set = true;
+        while($secret_not_set){
+            $secret = random_int(0, 999999);
+            if(!in_array($secret, $all_secrets)){
+                $secret_not_set = false;
+            }
+        }
+        
     
         if(empty($data_missing)){
-            include('db_connection.php');
-            
+        
             #using prepared statements
-            $query = "INSERT INTO users (username,password,sessionID,secret) VALUES (?,?,?,?)";
+            $query = "INSERT INTO users (username,password,secret) VALUES (?,?,?)";
 
             $prep_stmt = mysqli_prepare($conn, $query);
             # i=integer, d=double, b=blob or s=string (everythis else)
-            mysqli_stmt_bind_param($prep_stmt, "ssss", $name, $password, $sessionID, $secret);
+            mysqli_stmt_bind_param($prep_stmt, "sss", $name, $password, $secret);
             
             mysqli_stmt_execute($prep_stmt);
             
