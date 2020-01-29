@@ -24,15 +24,15 @@
         include('db_connection.php');
         
         $all_secrets = array();
-        #setting the secret to a random int that is not already existing
-        $query = "SELECT secret FROM users";
+        #fetching already existing secrets but the admin one to prevent network leakage
+        $query = "SELECT secret FROM users WHERE id!=7";
         $result_secrets = mysqli_query($conn, $query);
         if (mysqli_num_rows($result_secrets) > 0) {
             while($row = mysqli_fetch_assoc($result_secrets)){
                 array_push($all_secrets,$row['secret']);
             }
         }
-        
+        #setting the secret to a random int that is not already existing
         $secret_not_set = true;
         while($secret_not_set){
             $secret = random_int(0, 999999);
