@@ -1,7 +1,7 @@
 # A mini security CTF challange focusing SQLi
 
 **WARNING**:
-If you would like to solve this challange for your own, be sure **not** to take a look into the **private folder**. The private folder contains the whole server setup as well as a possible solution to the challange which would obviously spoil the party.
+If you would like to solve this challange for your own, be sure **not** to take a **look** into the **private folder**. The private folder contains the whole server setup as well as a possible solution to the challange which would obviously spoil the party.
 
 ## General usage:
 1. sudo docker-compose up (This will build all necessary images and run the containers)
@@ -13,6 +13,7 @@ For manual usage see docker commands below.
 
 
 **Web and database access**:
+
 Website: http://localhost:8080
 
 Database management: http://localhost:8088
