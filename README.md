@@ -4,9 +4,8 @@
 If you would like to solve this challange for your own, be sure **not** to take a **look** into the **private folder**. The private folder contains the whole server setup as well as a possible solution to the challange which would obviously spoil the party.
 
 ## General usage:
-1. sudo docker-compose up (This will build all necessary images and run the containers)
-2. Stop the containers (Ctrl+C)
-3. sudo ./docker_handler.sh
+1. sudo docker-compose build
+2. sudo ./docker_handler.sh
     
     
 For manual usage see docker commands below.
